@@ -16,19 +16,11 @@ public class Main {
 //        if (result != null)
 //            System.out.println("Reference of the node with value = "+result.val);
 //        System.out.println("Hello World!");
-        int[] nums = new int[]{8,8,7,7,7};
-        MajorityElement me = new MajorityElement();
-        int i = me.majorityElement(nums);
-        System.out.println(i);
+//        int[] nums = new int[]{8,8,7,7,7};
+//        MajorityElement me = new MajorityElement();
+//        int i = me.majorityElement(nums);
+//        System.out.println(i);
     }
 
-     private static ListNode initListNode(int[] listData){
-        ListNode head = new ListNode(listData[0]);
-        ListNode p = head;
-        for(int i = 1; i < listData.length; i ++){
-            p.next = new ListNode(listData[i]);
-            p = p.next;
-        }
-        return head;
-    }
+
 }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class TraverseHashMap {
+public class HashMapTraverse {
     public void traverse() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("1", "value1");

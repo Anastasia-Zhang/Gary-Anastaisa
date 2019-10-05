@@ -66,8 +66,17 @@ public class MajorityElement {
     }
 
     // Moore voting
+    // 摩尔投票算法： 寻找数组中超过一半的数意味着这个数字的出现的次数大于之前的数字，循环到最后的数字一定是众数（超过一半抵消不了）
     public int majorityElement4(int[] nums){
-        return 0;
+        int count = 0;
+        int candidate = nums[0];
+        for(int num : nums){
+            if (count == 0){
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+        return candidate;
     }
 
     // 分冶算法
