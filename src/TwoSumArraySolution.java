@@ -6,7 +6,7 @@ public class TwoSumArraySolution {
     // 如果和等于目标值，我们发现了这个唯一解。如果比目标值小，我们将较小元素指针增加一。
     // 如果比目标值大，我们将较大指针减小一。移动指针后重复上述比较知道找到答案
 
-    public int[] twoSum(int[] numbers, int target) {
+    public int[] twoSum1(int[] numbers, int target) {
         if(numbers == null || numbers.length == 0 || target < numbers[0]) return new int[]{};
         int slow = 0;
         int quick = numbers.length - 1;
@@ -21,4 +21,17 @@ public class TwoSumArraySolution {
         }
         return null;
     }
+
+    public int[] twoSum(int[] numbers, int target) {
+        for(int i = 0;i < numbers.length - 1;i++){
+            for (int j = i + 1; j < numbers.length;j ++){
+                if (numbers[i] + numbers[j] == target){
+                    return new int[]{i + 1,j + 1};
+                }
+            }
+        }
+        return new int[]{};
+    }
+
+
 }

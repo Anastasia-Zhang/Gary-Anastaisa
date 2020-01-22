@@ -1,3 +1,5 @@
+package fastSlowPoint;
+
 import common.ListNode;
 
 import java.util.HashSet;

@@ -1,9 +1,6 @@
 package common;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class HashMapTraverse {
     public void traverse() {
@@ -50,6 +47,7 @@ public class HashMapTraverse {
         for (String v : map.values()) {
             System.out.println("value= " + v);
         }
+
     }
 }
 
