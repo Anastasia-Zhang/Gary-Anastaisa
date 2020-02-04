@@ -55,7 +55,7 @@ public class BSFDSF {
     }
 
 
-    private void broadSearch(int startNode){
+    private void broadFirstSearch(int startNode){
         boolean[] visited = new boolean[nodeNum];
         int u;
         Queue<Integer> queue = new LinkedList<>();
@@ -72,14 +72,32 @@ public class BSFDSF {
         }
     }
 
-//    private void broadFirstSearch(boolean[] visited){
-//
-//        for (int j = 0;j < visited.length;j ++){
-//            if(!visited[j]){
-//                broadSearch(j,visited);
-//            }
-//        }
-//    }
+    //私有函数，深度优先遍历
+    private void depthFirstSearch(boolean[] isVisited, int i) {
+
+        //置该结点为已访问
+        isVisited[i] = true;
+
+        for(i = 0;i < nodeNum ; i++){
+            if (!isVisited[i]) {
+                depthFirstSearch(isVisited, i);
+            }
+        }
+
+    }
+
+    //对外公开函数，深度优先遍历，与其同名私有函数属于方法重载
+    public void depthFirstSearch() {
+        boolean[] visited = new boolean[nodeNum];
+        for (int i = 0; i < nodeNum; i++) {
+            //因为对于非连通图来说，并不是通过一个结点就一定可以遍历所有结点的。
+            if (!visited[i]) {
+                depthFirstSearch(visited, i);
+            }
+        }
+    }
+
+
 
 
     public static void main(String[] args) {
