@@ -22,9 +22,7 @@ public class NumberOf1Bits {
         int sum = 0;
         while (n != 0){
             sum ++;
-            System.out.println("sum: " + sum);
             n &= (n - 1);
-            System.out.println("n: " + Integer.toBinaryString(n));
         }
         return sum;
     }

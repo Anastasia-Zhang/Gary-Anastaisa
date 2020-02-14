@@ -2,6 +2,7 @@ public class ReverseBits {
     // 不断取最低位放在最前面
     public static int reverseBites(int n){
         int result = 0;
+        //System.out.println("n: " + n);
         for(int i = 0;i <= 32; i ++){
             // 1. 将给定的二进制数,由低到高位逐个取出
             int tmp = n >> i;
@@ -18,7 +19,7 @@ public class ReverseBits {
     }
 
     public static void main(String[] args) {
-        reverseBites(43261596);// 10100101000001111010011100
+        System.out.println(Integer.toBinaryString(reverseBites(43261596)));// 10100101000001111010011100
 
     }
 

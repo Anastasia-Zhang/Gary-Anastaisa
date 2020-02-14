@@ -5,7 +5,7 @@ import java.util.*;
 public class HashMapSort {
     public static void main(String[] args) {
         Map phone = new HashMap();
-        phone.put("Apple", 7299);
+        phone.put("ProxyPattern.Apple", 7299);
         phone.put("SAMSUNG", 6000);
         phone.put("Meizu", 2698);
         phone.put("Xiaomi", 2400);
