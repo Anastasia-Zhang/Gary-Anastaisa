@@ -1,4 +1,4 @@
-package recursion;
+package Tree;
 
 /**
  * @author Zhang Xinyu
@@ -46,6 +46,7 @@ public class LongestUnivaluePath {
         if (node.right != null && node.right.val == node.val) arrowRight = right + 1;
         // 更新全局最长路径，用于返回最终结果（左子树的最长路径 + 右子树的最长路径）
         ans = Math.max(ans, arrowLeft + arrowRight);
+        // 单侧的最长路径，可能是左子树，也可能是右子树所在的路径
         return Math.max(arrowLeft, arrowRight);
     }
 

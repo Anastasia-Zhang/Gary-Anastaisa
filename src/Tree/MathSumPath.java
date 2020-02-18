@@ -1,4 +1,4 @@
-package recursion;
+package Tree;
 
 import common.TreeNode;
 
@@ -27,25 +27,17 @@ public class MathSumPath {
             return 0;
         }
         if (node.right == null && node.left == null) {
+            // 当前结点作为最小的值
             ans = Math.max(ans, node.val);
             return node.val;
         }
+        // 最大值的结点有三种情况，找出当前结点的左子树和右子树的最大值，结果相加
         int rightSum = maxSum(node.right);
         int leftSum = maxSum(node.left);
-//        int maxRight = 0;
-//        int maxLeft = 0;
-//        if (node.right != null){
-//            maxRight = rightSum;
-//        }
-//        if (node.left != null){
-//            maxLeft = leftSum;
-//        }
         // 如果都小于0则应该都舍去
         if (leftSum < 0) leftSum = 0;
         if (rightSum < 0) rightSum = 0;
-        // int subSum = (maxLeft < 0 || maxRight < 0) ? Math.max(maxLeft, maxRight) : maxLeft + maxRight;
         ans = Math.max(ans, rightSum + leftSum + node.val);
-//        int subSum = (maxLeft < 0 || maxRight < 0) ? Math.max(maxLeft, maxRight) : maxLeft + maxRight;
         return Math.max(leftSum + node.val, rightSum + node.val);
     }
 }
