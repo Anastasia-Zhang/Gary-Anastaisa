@@ -1,3 +1,5 @@
+package bits;
+
 public class NumberOf1Bits {
     public static int hammingWeight(int n) {//
         int count = 0;

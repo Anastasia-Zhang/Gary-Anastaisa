@@ -12,7 +12,7 @@ public class TreeNode {
     public TreeNode left;
     public TreeNode right;
 
-    TreeNode(int x) {
+    public TreeNode(int x) {
         val = x;
     }
 
@@ -58,7 +58,7 @@ public class TreeNode {
     }
 
     public static void main(String[] args) {
-        Object[] obj = new Object[]{1,2,null,3};
+        Object[] obj = new Object[]{1,2,3,4,5};
         TreeNode treeNode = create(obj);
         preorder(treeNode);
     }

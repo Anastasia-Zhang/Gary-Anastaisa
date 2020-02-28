@@ -19,7 +19,7 @@ public class Sort {
 //            //int[] ins = insertSort(arr);
             // int[] ins = bubbleSort(arr);
             // int[] ins = countSort(arr);
-            quickSort2(arr, 0 , arr.length - 1);
+            quickSort1(arr, 0 , arr.length - 1);
             for(int k = 0; k < arr.length - 1; k ++){
                 System.out.print(arr[k] + " ");
             }
@@ -99,20 +99,20 @@ public class Sort {
     // 找一个基准值，使数组的左边都小于这个基准值，数组的左边都大于基准值，再分别对两边的数组排序，直到两两边均有序
     private static void quickSort1(int[] s, int left, int right){
         if(left < right){
-            int i = left, j = right;
-            int temp = s[right];
-            while (i < j){
-                // 寻找左边第一个大于基准值的下标
-                while (s[i] < temp && i < j) i ++;
-                if(i < j) s[j--] = s[i];
-                // 寻找右边第一个小于基准值的下标
-                while (s[j] >= temp && i < j) j--;
-                if(i < j) s[i++] = s[j];
-            }
-            s[i] = temp;
+//            int i = left, j = right;
+//            int temp = s[right];
+//            while (i < j){
+//                // 寻找左边第一个大于基准值的下标
+//                while (s[i] < temp && i < j) i ++;
+//                if(i < j) s[j--] = s[i];
+//                // 寻找右边第一个小于基准值的下标
+//                while (s[j] >= temp && i < j) j--;
+//                if(i < j) s[i++] = s[j];
+//            }
+//            s[i] = temp;
+            int i = partition(s, left, right);
             quickSort1(s,left,i - 1); // 递归左边部分数组
             quickSort1(s,i + 1,right); // 递归右边数组
-            // 相当于把参数传过去
         }
     }
 
@@ -142,10 +142,10 @@ public class Sort {
         int pivot = arr[left];
         while (left < right){
             // 寻找右边第一个小于基准值的下标
-            while (left < right && arr[right] >= pivot) right--;
+            while (left < right && arr[right] > pivot) right--;
             arr[left] = arr[right];
             // 寻找左边第一个大于这个基准值的下标
-            while (left < right && arr[left] <= pivot) left++;
+            while (left < right && arr[left] < pivot) left++;
             arr[right] = arr[left];
         }
         arr[left ] = pivot;
