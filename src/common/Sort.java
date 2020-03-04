@@ -153,7 +153,8 @@ public class Sort {
     }
 
     // 归并排序：基于分冶归并排序基于分治（快排也是），利用归并来实现排序，其基本思想是：
-    //　如果一个数组有n个数据，则可以把这个数组看作n个有序的子序列，每个子序列的长度为1，然后两两归并，就能得到[n/2]个长度为2（或者1，落单的)的字序列，再不断地两两归并，直到得到一个长度为n的有序数组。
+    //　如果一个数组有n个数据，则可以把这个数组看作n个有序的子序列，每个子序列的长度为1，
+    // 然后两两归并，就能得到[n/2]个长度为2（或者1，落单的)的字序列，再不断地两两归并，直到得到一个长度为n的有序数组。
 
     private static  void segment(int[] nums, int left, int right){
         if(left < right){
@@ -180,7 +181,7 @@ public class Sort {
                 tmpArray[tmpIndex++] = nums[rightIndex++];
             }
         }
-        // 把右边剩余的数移入数组
+        // 把左边剩余的数移入数组
         while (leftIndex <= center){
             tmpArray[tmpIndex++] = nums[leftIndex++];
         }
@@ -190,8 +191,6 @@ public class Sort {
         }
         // 新数组覆盖原数组
         System.arraycopy(tmpArray, 0 ,nums, left, tmpArray.length);
-
-
     }
 
 }

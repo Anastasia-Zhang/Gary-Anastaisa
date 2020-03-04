@@ -36,8 +36,9 @@ public class 面试题7重建二叉树 {
             rootIndex++;
         }
         // 计算该节点的前序和中序的序列索引
+        // 找到左子树的长度
         int leftLength = rootIndex - inorderStart;
-        int rootLeftEnd = preorderStart + leftLength;
+        int rootLeftEnd = preorderStart + leftLength; // 根据长度计算前序遍历序列的左节点索引
         // 如果该根节点的左子树结点个数大于0
         if (leftLength > 0)
             root.left = constractTree(preorderStart + 1, rootLeftEnd, inorderStart, rootIndex - 1,preorder, inorder);

@@ -18,6 +18,7 @@ public class MaxSumSubArray {
         for (int i = 0; i < nums.length; i++){
             // 用一个变量来记录到nums[i]的最大子序列值
             // -2 -1 -3 4 3 5 6 1 5
+            // dp[i] 是代表当前最大
             maxSum = Math.max(maxSum + nums[i], nums[i]);
             // 用变量来记录当前最大值 max = 6
             max = Math.max(max, maxSum);

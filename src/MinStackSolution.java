@@ -35,7 +35,7 @@ public class MinStackSolution {
     public void popSys(){
         if(!data.empty()){
             data.pop();
-            data.pop();
+            helper.pop();
         }
     }
 

@@ -9,9 +9,9 @@ import common.TreeNode;
  */
 public class MathSumPath {
     public static void main(String[] args) {
-        Object[] obj = new Object[]{1,2,null,3,null,4,null,5};
+        Object[] obj = new Object[]{1,2,3,4,5,6,7};
         TreeNode treeNode = new TreeNode();
-        treeNode = treeNode.create(obj);
+        treeNode = TreeNode.create(obj);
         maxPathSum(treeNode);
         System.out.println(ans);
     }
