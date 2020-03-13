@@ -32,7 +32,6 @@ public class 面试题40最小的k个数 {
             nums[right] = nums[left];
         }
         nums[left] = pivot;
-        //System.out.println(Arrays.toString(nums));
         return left;
     }
 

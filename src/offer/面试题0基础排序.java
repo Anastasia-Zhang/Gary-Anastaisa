@@ -11,12 +11,72 @@ import java.util.LinkedList;
 public class 面试题0基础排序 {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{0,5,6,4};
+        int[] arr = new int[]{2,6,5,4,2,5,3,4,2};
         // System.out.println(segmentCount(arr, 0, arr.length - 1));
         System.out.println(Arrays.toString(arr));
-        heapSort(arr);
+        // partition(arr,0,arr.length - 1);
+        // bubbleSort(arr);
+        // insertSort(arr);
+        // selectSort(arr);
+        shellSort(arr);
         System.out.println(Arrays.toString(arr));
 
+    }
+
+    public static void insertSort(int[] nums) {
+        for (int i = 1; i < nums.length; i++) {
+            int j;
+            int temp = nums[i];
+            for (j = i; j > 0 && temp < nums[j - 1]; j--) {
+                nums[j] = nums[j - 1];
+            }
+            nums[j] = temp;
+        }
+    }
+
+    public static void bubbleSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++){
+            boolean flag = false;
+            // 每次排序找到最大的数，排到后面
+            for (int j = 1; j < nums.length - i; j++){
+                if (nums[j] < nums[j - 1]){
+                    int temp = nums[j - 1];
+                    nums[j - 1] = nums[j];
+                    nums[j] = temp;
+                    flag = true;
+                }
+            }
+            if (!flag) break;
+        }
+    }
+
+    public static void selectSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++){
+            int min = i; // 最小元素的下标
+            for (int j = i + 1; j < nums.length; j++){
+                if (nums[min] > nums[j]) min = j;
+            }
+            int temp = nums[min];
+            nums[min] = nums[i];
+            nums[i] = temp;
+        }
+    }
+
+    public static void shellSort(int[] nums) {
+        int h = 1;
+        while (h < nums.length / 3) h = 3 * h + 1;
+        while (h >= 1) {
+            System.out.println(h);
+            for (int i = h; i < nums.length; i++){
+                int j;
+                int temp = nums[i];
+                for (j = i; j >= h && temp < nums[j - h]; j -= h){
+                    nums[j] = nums[j - h];
+                }
+                nums[j] = temp;
+            }
+            h = h / 3;
+        }
     }
 
     public static void quickSort(int[] nums, int left, int right){
@@ -56,7 +116,8 @@ public class 面试题0基础排序 {
         while (left < right){
             while (left < right && nums[right] > pivot) right--;
             nums[left] = nums[right];
-            while (left < right && nums[left] < pivot) left++;
+            // 要加等号，要不然left = right 会造成死循环
+            while (left < right && nums[left] <= pivot) left++;
             nums[right] = nums[left];
         }
         nums[left] = pivot;
@@ -132,7 +193,7 @@ public class 面试题0基础排序 {
 
             }
             else {
-                reverseNum += center - left + 1;
+                reverseNum += center - leftIndex + 1;
                 // 右边的数字小，与整个左数组构成了逆序
                 tempNum[tempIndex++] = nums[rightIndex++];
 
@@ -180,10 +241,16 @@ public class 面试题0基础排序 {
     }
 
     public static void heapify(int[] nums, int k, int n){
+        // 根节点和两个孩子结点交换，保证孩子结点小于等n
         while (2 * k + 1 <= n){
+            // 孩子结点下标，从零开始
             int child = 2 * k + 1;
+            // 找出两个孩子中的较大的孩子
+            // child < n 如果加上等于号child + 1 下标越界
             if (child < n && nums[child] < nums[child + 1]) child++;
+            // 满足堆的条件直接 break 掉
             if (nums[k] >= nums[child]) break;
+            // 不满足则交换
             swap(nums, k, child);
             k = child;
         }
@@ -191,11 +258,9 @@ public class 面试题0基础排序 {
 
 
     private static void swap(int[] nums, int i, int j){
-
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
-
     }
 
 

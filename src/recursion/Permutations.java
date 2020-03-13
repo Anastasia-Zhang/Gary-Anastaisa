@@ -12,14 +12,10 @@ public class Permutations {
     List<List<Integer>> result = new ArrayList<>();
     boolean visited[] = null;
     public List<List<Integer>> permute(int[] nums) {
-
         visited = new boolean[nums.length];
         List<Integer> ans = new ArrayList<>();
         if (nums.length == 0) return result;
-
-
         dfs(nums, 0, ans);
-
         return result;
     }
 

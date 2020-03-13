@@ -9,6 +9,8 @@ public class HashMapTraverse {
         map.put("2", "value2");
         map.put("3", "value3");
 
+
+
         //第一种：普遍使用，二次取值
         System.out.println("通过Map.keySet遍历key和value：");
         for (String key : map.keySet()) {
@@ -23,7 +25,7 @@ public class HashMapTraverse {
             System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
         }
 
-        //第三种：推荐，尤其是容量大时
+        //第三种：推荐，尤其是容量大时 注意此种方法无序，会打乱以前加入的顺序
         // Map.entrySet() 这个方法返回的是一个Set<Map.Entry<K,V>>，
         // Map.Entry 是Map中的一个接口，他的用途是表示一个映射项（里面有Key和Value），
         // 而Set<Map.Entry<K,V>>表示一个映射项的Set。Map.Entry里有相应的getKey和getValue方法，

@@ -14,12 +14,16 @@ public class 面试题34二叉树中和为某一值的路径 {
     static List<List<Integer>> res = new ArrayList<>();
 
     public static void main(String[] args) {
-        char a = '2';
 
-        System.out.println(a - '0');
-        System.out.println(a - 'a');
-//        TreeNode root = TreeNode.create(new Object[]{10, 5, 2, 4, 7});
-//        pathSum(root, 22);
+        TreeNode root = TreeNode.create(new Object[]{10, 5, 2, 4, 7});
+        pathSum(root, 22);
+        for (int i = 0; i < res.size(); i++){
+            List<Integer> list = res.get(i);
+            for (int num : list){
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
     }
     public static List<List<Integer>> pathSum(TreeNode root, int sum) {
         if (root == null) return res;
@@ -31,26 +35,38 @@ public class 面试题34二叉树中和为某一值的路径 {
     public static void findPathSum(TreeNode root, int sum, List<Integer> path){
 
         // if (sum < 0 || root == null) return;
-        path.add(root.val);
 
-        // 递归终点, 必须把当前结的值减掉
-        if (root.right == null && root.left == null && sum - root.val == 0){
+        //if  (root == null) return;
+
+        if (sum == 0 &&  root == null) {
             res.add(new ArrayList<>(path));
             return;
         }
+        if (root == null) {
 
-        if (root.left != null) {
+            return;
+        }
+        path.add(root.val);
+
+        // 递归终点, 必须把当前结的值减掉
+//        if (root.right == null && root.left == null && sum - root.val == 0){
+//            res.add(new ArrayList<>(path));
+//            return;
+//        }
+
+        //if (root.left != null) {
             // 直接 new 会慢很多
             // findPathSum(root.left, sum - root.val , new ArrayList<>(path));
             findPathSum(root.left, sum - root.val , path);
-            path.remove(path.size() - 1);
-        }
+            //path.remove(path.size() - 1);
+       // }
 
 
-        if (root.right != null){
+        //if (root.right != null){
             findPathSum(root.right, sum - root.val, path);
-            path.remove(path.size() - 1);
-        }
+            //path.remove(path.size() - 1);
+        path.remove(path.size() - 1);
+        //}
 
 
     }
