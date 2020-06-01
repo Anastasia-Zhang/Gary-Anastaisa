@@ -1,6 +1,6 @@
 package offer;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * @author Zhang Xinyu
@@ -8,6 +8,12 @@ import java.util.Arrays;
  * @date 2020/3/3 19:56
  */
 public class 面试题40最小的k个数 {
+    public static void main(String[] args) {
+        int[] arr = new int[]{3,4,6,4,7,9,2};
+        System.out.println(Arrays.toString(getLeastNumbersHeap(arr, 3)));
+
+    }
+
     // 基于快排的思想，使得比 k 小的数字都位于数组的左边
     public int[] getLeastNumbers(int[] arr, int k) {
         int low = 0;
@@ -36,7 +42,7 @@ public class 面试题40最小的k个数 {
     }
 
     // 使用大顶堆来实现
-    public int[] getLeastNumbersHeap(int[] arr, int k) {
+    public static int[] getLeastNumbersHeap(int[] arr, int k) {
         if (k == 0) return new int[0];
         // 大顶堆
         int[] res = Arrays.copyOfRange(arr, 0, k); // 先取k个元素
@@ -46,6 +52,7 @@ public class 面试题40最小的k个数 {
         }
         // 遍历剩下的数组，在最大堆中取堆顶的元素，如果插入的元素比最大堆的堆顶还要小，就替换，重新调整堆，否则就舍弃
         for (int i = k; i < arr.length; i++){
+            // if (arr[i] < res[0])
             if (arr[i] < res[0]) {
                 res[0] = arr[i];
                 // 新插入的元素插入到大顶堆上面，肯定不符合堆内的排序 重新调整
@@ -57,7 +64,7 @@ public class 面试题40最小的k个数 {
     }
 
     // 下沉调整大顶堆，m 为开始索引， n为堆的容量
-    private void heapify(int[] nums, int m, int n){
+    private static void heapify(int[] nums, int m, int n){
         // i 2i 2i + 1 的对应关系是 下标为1开始的，因此对照此关系要下标 + 1: i 2i+ 1 2i + 2
         while (m * 2 + 1 <= n) {
             int child = m * 2 + 1;
@@ -70,9 +77,36 @@ public class 面试题40最小的k个数 {
         }
     }
 
-    private void swap(int[] nums, int i, int j){
+    private static void swap(int[] nums, int i, int j){
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    class Solution {
+        private int k;
+        private Queue<Integer> minHeap;
+
+        public Solution(int k){
+            this.k = k;
+            minHeap = new PriorityQueue<>(k);
+        }
+
+        public void add(int num){
+            if (minHeap.size() < k) {
+                minHeap.offer(k);
+            } else {
+                if (num > minHeap.peek()) {
+                    minHeap.poll();
+                    minHeap.offer(num);
+                }
+            }
+        }
+
+        public List<Integer> topK(){
+            List<Integer> res = new ArrayList<>(minHeap);
+            Collections.sort(res, Collections.reverseOrder());
+            return res;
+        }
     }
 }

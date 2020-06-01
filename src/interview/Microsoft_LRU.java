@@ -1,3 +1,5 @@
+package interview;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,7 +19,7 @@ public class Microsoft_LRU {
 // Follow up:
 // Could you do both operations in O(1) time complexity?
 // Example:
-// LRUCache cache = new LRUCache( 2 /* capacity */ );
+// interview.LRUCache cache = new interview.LRUCache( 2 /* capacity */ );
 // cache.put(1, 1);
 // cache.put(2, 2);
 // cache.get(1);       // returns 1
@@ -92,9 +94,9 @@ class LRUCache {
 
 /**
 
- * Your LRUCache object will be instantiated and called as such:
+ * Your interview.LRUCache object will be instantiated and called as such:
 
- * LRUCache obj = new LRUCache(capacity);
+ * interview.LRUCache obj = new interview.LRUCache(capacity);
 
  * int param_1 = obj.get(key);
 

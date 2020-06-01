@@ -1,7 +1,9 @@
 package offer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Zhang Xinyu
@@ -20,6 +22,7 @@ public class 面试题0基础排序 {
         // selectSort(arr);
         shellSort(arr);
         System.out.println(Arrays.toString(arr));
+
 
     }
 
@@ -196,7 +199,6 @@ public class 面试题0基础排序 {
                 reverseNum += center - leftIndex + 1;
                 // 右边的数字小，与整个左数组构成了逆序
                 tempNum[tempIndex++] = nums[rightIndex++];
-
             }
         }
         // 合并剩下的
