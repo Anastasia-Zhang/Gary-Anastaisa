@@ -14,16 +14,17 @@ public class WordLadder {
         wordList.add("lot");
         wordList.add("log");
         wordList.add("cog");
-       // System.out.println(ladderLength(beginWord,endWord,wordList));
-        //["hit","hot","dot","dog","cog"],
-        //["hit","hot","lot","log","cog"]
-        List<List<String>> result = findLadders(beginWord,endWord,wordList);
-        for (List<String> list : result){
-            for (String word : list){
-                System.out.print(word + " ");
-            }
-            System.out.println();
-        }
+//        System.out.println(ladderLength(beginWord,endWord,wordList));
+//        ["hit","hot","dot","dog","cog"],
+//        ["hit","hot","lot","log","cog"]
+//        List<List<String>> result = findLadders(beginWord,endWord,wordList);
+//        for (List<String> list : result){
+//            for (String word : list){
+//                System.out.print(word + " ");
+//            }
+//            System.out.println();
+//        }
+        //findLaddersToPath(beginWord, endWord, wordList, new HashMap<>());
     }
 
     /**
@@ -86,85 +87,97 @@ public class WordLadder {
         return 0;
     }
 
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
 
-    // 死循环
-    public static List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-        List<List<String>> result = new ArrayList<>();
-        if(!wordList.contains(endWord)){
-            return result;
+        List<List<String>> res = new ArrayList<>();
+        if (wordList.size() == 0) {
+            return res;
         }
+
+        // 第 1 步：使用广度优先遍历得到后继结点列表 successors
+        // key：字符串，value：广度优先遍历过程中 key 的后继结点列表
+        HashMap<String, Set<String>> successors = new HashMap<>();
+        boolean found = findLaddersToPath(beginWord, endWord, wordList, successors);
+        if (!found) {
+            return res;
+        }
+
+        // 第 2 步：基于后继结点列表 successors ，使用回溯算法得到所有最短路径列表
+        ArrayList<String> path = new ArrayList<>();
+        path.add(beginWord);
+        findLadders(beginWord, endWord, successors, path, res);
+        return res;
+
+    }
+
+    public static boolean findLaddersToPath(String beginWord, String endWord,
+                                                       List<String> wordList, HashMap<String, Set<String>> successors) {
+
         int L = beginWord.length();
         HashMap<String, ArrayList<String>> allWordDict = new HashMap<>();
         for (String word : wordList) {
             for (int i = 0; i < L; i++) {
-                String wordPattern = word.substring(0,i) + "*" + word.substring(i + 1, L);
-                ArrayList<String> mapWordList = allWordDict.getOrDefault(wordPattern, new ArrayList<>());// 得到wordPattern 的key值，若无则返回指定默认的key值,省去判空操作
+                String wordPattern = word.substring(0, i) + "*" + word.substring(i + 1, L);
+                ArrayList<String> mapWordList = allWordDict.getOrDefault(wordPattern, new ArrayList<>());
                 mapWordList.add(word);
-                allWordDict.put(wordPattern,mapWordList);
+                allWordDict.put(wordPattern, mapWordList);
             }
         }
-        // 广度优先遍历，存储广度优先遍历每一层遍历所需要最短的路径
-        Queue<List<String>> queue = new LinkedList<>();
-        List<String> beginPath = new ArrayList<>();
-        beginPath.add(beginWord);
-        queue.add(beginPath);
-        // 用set保存历史上保存过的结点
+
+        Queue<String> queue = new LinkedList<>();
+        queue.add(beginWord);
         Set<String> visited = new HashSet<>();
         visited.add(beginWord);
 
-        boolean isFound = false; // 判断新添加进队列的每一层路径是否为最短路径
-
-        // 遍历队列
-        while (!queue.isEmpty() && !isFound){
-            // 要判断的是当前节点在之前层有没有出现过，当前层正在遍历的节点先加到 levelVisited 中。
-            Set<String> levelVisited = new HashSet<>(); // 保存同一个层次下的访问的单词
-            for (int j = 0;j < queue.size();j ++) {
-                List<String> path = queue.remove(); // 取出队头元素
-                //System.out.println(path.toString());
-                String word = path.get(path.size() - 1); // 取出路径的最后一个单词
-                Set<String> neighbors = getNeighbors(word,allWordDict);
-                // 找到这个单词对应所有的通用模式
-//                for (int i = 0; i < L; i++) {
-//                    // 得到这几单词的邻接结点
-//                    String wordPattern = word.substring(0, i) + "*" + word.substring(i + 1, L);
-                    //for (String patternTarget : allWordDict.getOrDefault(wordPattern, new ArrayList<>())) {
-                      for (String patternTarget : neighbors)
-                        // 只考虑之前没有出现过的单词
+        // 访问当前层遍历过的节点，当前层全部遍历完成之后，再添加到总的 visited 集合里
+        Set<String> nextLevelVisited = new HashSet<>();
+        boolean found = false;
+        while (!queue.isEmpty()) {
+            int size = queue.size(); // 一定要赋值，在遍历的时候 queue.size 是动态变化的，要不然会造成死循环
+            // 遍历当前层
+            for (int i = 0; i < size; i++) {
+                String currentWord = queue.poll();
+                // Set<String> neighbors = getNeighbors(currentWord,allWordDict);
+                for (int j = 0; j < L; j++) {
+                    String wordPattern = currentWord.substring(0, j) + "*" + currentWord.substring(j + 1, L);
+                    // 遍历当前单词的所有可能的临接节点
+                    for (String patternTarget : allWordDict.getOrDefault(wordPattern, new ArrayList<>())) {
+                        // 如果他的临界节点没有遍历过
                         if (!visited.contains(patternTarget)) {
-                            // 如果到达结束状态
-
-                            if (patternTarget.equals(endWord)){
-                                path.add(patternTarget);
-                                isFound = true;
-                                result.add(new ArrayList<>(path));
-                                path.remove(path.size() - 1);
+                            if (patternTarget.equals(endWord)) {
+                                found = true;
                             }
-                            // 加入当前单词
-                            path.add(patternTarget);
-                            queue.add(new ArrayList<>(path));
-                            path.remove(path.size() - 1); //下次循环做准备
-                            levelVisited.add(patternTarget);
+                            nextLevelVisited.add(patternTarget);
+                            queue.offer(patternTarget);
+                            // 更新临接表
+                            Set<String> set = successors.getOrDefault(currentWord, new HashSet<>());
+                            set.add(patternTarget);
+                            successors.put(currentWord, set);
                         }
-                    //}
-//                }
+                    }
+                }
             }
-            visited.addAll(levelVisited);
+            // 该层是否遍历了
+            if (found) break;
+            visited.addAll(nextLevelVisited);
+            nextLevelVisited.clear();
         }
-        return result;
+        return found;
     }
 
-    private static Set<String> getNeighbors(String word, HashMap<String, ArrayList<String>> allWordDict){
-        Set<String> res = new HashSet<>();
-        for (int i = 0; i < word.length(); i++) {
-            // 得到这几单词的邻接结点
-            String wordPattern = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
-            ArrayList<String> neighborList = allWordDict.getOrDefault(wordPattern, new ArrayList<>());
-            res.addAll(neighborList);
+    public static void findLadders(String beginWord, String endWord,
+                                      HashMap<String, Set<String>> successors,
+                                      List<String> path, List<List<String>> res) {
+        if (beginWord.equals(endWord)) {
+            res.add(new ArrayList<>(path));
+            return;
         }
-        res.remove(word);
-        for (String path : res){
-            System.out.print(path + " ");
+        if (!successors.containsKey(beginWord)) return;
+        for (String word : successors.get(beginWord)) {
+            path.add(word);
+            findLadders(word, endWord, successors, path, res);
+            path.remove(word);
         }
-        return res;
+
     }
 }
