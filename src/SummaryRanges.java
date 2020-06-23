@@ -23,6 +23,8 @@ public class SummaryRanges {
         }
     }
 
+
+
     public static List<String> summaryRanges(int[] nums) {
         List<String> ans = new ArrayList<>();
         List<Integer> window = new ArrayList<>();
